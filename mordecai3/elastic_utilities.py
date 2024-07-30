@@ -11,10 +11,17 @@ from elasticsearch_dsl import Q, Search
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-def make_conn():
+def make_conn(es_host: str = 'localhost', es_port: int = 9200) -> Search:
+    """
+    Establish client connection to Elasticsearch.
+
+    :param es_host: Elasticsearch host
+    :param es_port: Elasticsearch port
+    :return: Elasticsearch Search object
+    """
     kwargs = dict(
-        hosts=['localhost'],
-        port=9200,
+        hosts=[es_host],
+        port=es_port,
         use_ssl=False,
     )
     CLIENT = Elasticsearch(**kwargs)
